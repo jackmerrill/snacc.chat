@@ -1,6 +1,6 @@
 ![Snacc.chat](/assets/logo.svg)
 
-<abbr title="Some New Advanced Coder Chat">Snacc Chat</abbr> is an online chat forum for programmers alike.
+Snacc(Some New Advanced Coder Chat) is an online chat forum for programmers alike.
 
 # Technologies used
 * [Typescript](https://www.typescriptlang.org/) - Language
