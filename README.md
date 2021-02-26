@@ -1,5 +1,4 @@
 ![Snacc.chat](/assets/logo.svg)
-[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 <abbr title="Some New Advanced Coder Chat">Snacc Chat</abbr> is an online chat forum for programmers alike.
 
@@ -16,3 +15,5 @@
 Logo drawn by [Aspen-Cyborg](https://github.com/Aspen-Cyborg)
 
 <img src="https://img.shields.io/badge/Created%20at-CodeDay-red?style=for-the-badge&link=https://codeday.org">
+
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
