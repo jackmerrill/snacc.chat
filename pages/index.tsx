@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getSession, Session } from "next-auth/client";
 import Navbar from "../components/Navbar";
+import Head from 'next/head'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
