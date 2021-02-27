@@ -20,6 +20,13 @@ export default function Home({ session }: {
 }) {
   return (
     <div className="h-screen w-screen bg-gray-900">
+      <Head>
+          <title>Snacc</title>
+          <meta property={"og:type"} content={"website"}/>
+          <meta property={"og:site_name"} content={"Snacc"}/>
+          <meta property={"og:url"} content={"https://snacc.chat"}/>
+          <meta property={"og:locale"} content={"en-US"}/>
+      </Head>
       <Navbar session={session} activePage={"home"} />
     </div>
   );
