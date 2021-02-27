@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .glitchedText {
+        text-shadow: -3px 0 0 rgba(255,0,0,.7), 3px 0 0 rgba(0,255,255,.7);
+        color: #B5B5B5;
+        letter-spacing: 20px;
+        text-transform: uppercase;
+        margin: 0px;
+        padding: 0px;
+    }
+
+}
