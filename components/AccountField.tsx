@@ -10,9 +10,6 @@ export default function AccountField({ FieldName, CurrentValue} : {
           <span className="text-white">{CurrentValue}</span>
         </div>
       </div>
-      <button type="button" className="mt-auto mb-auto align-middle bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        <div className="align-middle">Edit</div>
-      </button>
     </div>
   );
 }
