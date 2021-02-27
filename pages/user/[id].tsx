@@ -27,7 +27,7 @@ export default function User({ session } : {
     return (
       <div className="h-screen w-screen bg-gray-900">
         <Head>
-          <title>Snacc | {id}</title>
+          <title>Snacc | {session.user.name}</title>
           <meta property={"og:type"} content={"website"}/>
           <meta property={"og:site_name"} content={"Snacc"}/>
           <meta property={"og:url"} content={"https://snacc.chat"}/>
