@@ -5,8 +5,9 @@ import LoginIcon from "./icons/Login";
 import PencilIcon from "./icons/Pencil";
 import LogoVector from "./LogoVector";
 
-export default function Navbar({ session }: {
+export default function Navbar({ session, activePage="" }: {
     session: Session,
+    activePage: string
 }): JSX.Element {
     const [userMenuOpen, setUserMenu] = useState(false)
 
@@ -36,10 +37,10 @@ export default function Navbar({ session }: {
                             <div className="hidden sm:block sm:ml-6">
                             <div className="flex space-x-4">
                                 <Link href="/" passHref>
-                                    <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold">{session ? 'Your ' : ''}Feed</a>
+                                    <a className={activePage.toLowerCase() == 'home'?"bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold":"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>{session ? 'Your ' : ''}Feed</a>
                                 </Link>
                                 <Link href="/popular" passHref>
-                                    <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">What&apos;s Popular</a>
+                                    <a className={activePage.toLowerCase() == 'popular'?"bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold":"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>What&apos;s Popular</a>
                                 </Link>
                                 {session && (
                                     <Link href="/new" passHref>
