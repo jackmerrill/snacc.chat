@@ -6,6 +6,7 @@ import MarkdownIt from 'markdown-it'
 import ReactMde from "react-mde";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import { useState } from "react";
+import { Editor, EditorState } from 'draft-js';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
