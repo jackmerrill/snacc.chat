@@ -89,10 +89,12 @@ export default function Navbar({ session, activePage="" }: {
 
                 <div className="sm:hidden" id="mobile-menu">
                     <div className="px-2 pt-2 pb-3 space-y-1">
-                    <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+                    <Link href="/" passHref>
+                        <a className={activePage.toLowerCase() == 'home'?"bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold":"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>{session ? 'Your ' : ''}Feed</a>
+                    </Link>
+                    <Link href="/popular" passHref>
+                        <a className={activePage.toLowerCase() == 'popular'?"bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold":"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>What&apos;s Popular</a>
+                    </Link>
                     </div>
                 </div>
             </nav>
