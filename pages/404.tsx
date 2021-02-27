@@ -1,5 +1,4 @@
-import { GetServerSideProps } from "next";
-import { getSession, Session } from "next-auth/client";
+import { Session } from "next-auth/client";
 import NotFoundIllustration from "../components/illustrations/404";
 import Navbar from "../components/Navbar";
 

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Link from 'next/link';
-import Logo from './Logo';
 import { Session, signOut } from "next-auth/client";
 import LoginIcon from "./icons/Login";
-import PlusIcon from "./icons/Plus";
 import PencilIcon from "./icons/Pencil";
 import LogoVector from "./LogoVector";
 
@@ -30,9 +28,11 @@ export default function Navbar({ session, activePage="" }: {
                         </div>
                         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex-shrink-0 flex items-center">
-                                <a href="/">
-                                    <LogoVector width="36" height="36" />
-                                </a>
+                                <Link href="/" passHref>
+                                    <a>
+                                        <LogoVector width="36" height="36" />
+                                    </a>
+                                </Link>
                             </div>
                             <div className="hidden sm:block sm:ml-6">
                             <div className="flex space-x-4">
@@ -67,7 +67,7 @@ export default function Navbar({ session, activePage="" }: {
                                     </button>
                                 </div>
                                 <div className={userMenuOpen ? "origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" : "hidden"} role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                    <Link href={session.user.name}>
+                                    <Link href={`/users/`}>
                                         <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
                                     </Link>
                                     <Link href="/settings" passHref>
