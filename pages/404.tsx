@@ -60,11 +60,11 @@ export default function NotFound() {
               }
             },
             "retina_detect": true
-          }} className="bg-gray-900 overlay"/>
+          }} className="bg-gray-900 h-screen w-screen overlay"/>
         <div className="flex min-h-screen flex-col items-center justify-center text-center overlay">
           <div className="m-auto z-10">
               <h1 className="text-8xl font-extrabold text-white mb-3">ERROR 404</h1>
-            <div className="flex justify-center">
+            <div className="hidden lg:inline-block flex justify-center">
               <NotFoundIllustration width="500" height="500"/>
             </div>
               <h2 className="hidden md:block text-5xl text-white font-extrabold">What you are looking for is not here.</h2>
