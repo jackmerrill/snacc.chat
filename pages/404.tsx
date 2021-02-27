@@ -8,7 +8,7 @@ export default function NotFound({ session }: {
 }) {
   return (
     <div className="h-screen w-screen bg-gray-900 text-center">
-      <Navbar session={session} />
+      <Navbar session={session} activePage={""} />
       <div className="flex justify-center my-10 mx-3">
         <NotFoundIllustration width="500" height="500" />
       </div>

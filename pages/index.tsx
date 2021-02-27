@@ -20,7 +20,7 @@ export default function Home({ session }: {
 }) {
   return (
     <div className="h-screen w-screen bg-gray-900">
-      <Navbar session={session} />
+      <Navbar session={session} activePage={"home"} />
     </div>
   );
 }
