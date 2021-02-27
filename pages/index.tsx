@@ -28,6 +28,7 @@ export default function Home({ session }: {
           <meta property={"og:description"} content={"An open source social media network for programmers"}/>
           <meta property={"description"} content={"An open source social media network for programmers"}/>
           <meta property={"og:image"} content={"https://snacc.chat/Logo.png"}/>
+          <meta property={"theme-color"} content={"#1F2937"}/>
       </Head>
       <Navbar session={session} activePage={"home"} />
     </div>

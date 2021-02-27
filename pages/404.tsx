@@ -15,6 +15,7 @@ export default function NotFound() {
           <meta property={"og:title"} content={"Snacc | Some New Advanced Coder Chat"}/>
           <meta property={"og:description"} content={"An open source social media network for programmers"}/>
           <meta property={"description"} content={"An open source social media network for programmers"}/>
+          <meta property={"theme-color"} content={"#1F2937"}/>
         </Head>
         <Particles
           params={{
