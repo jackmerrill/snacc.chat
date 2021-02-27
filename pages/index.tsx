@@ -1,21 +1,26 @@
+import { GetServerSideProps } from "next";
+import { getSession, Session } from "next-auth/client";
+import { NextApiRequest } from "next-auth/_utils";
 import Head from "next/head";
+import Navbar from "../components/Navbar";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
 
-      <div
-        className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
-        role="alert"
-      >
-        <p className="font-bold">Be Warned</p>
-        <p>You are using Tailwind CSS!</p>
-      </div>
+  return {
+    props: {
+      session
+    }
+  }
+};
+
+export default function Home({ session }: {
+  session: Session,
+}) {
+  return (
+    <div className="h-screen w-screen bg-gray-900">
+      <Navbar session={session} />
     </div>
   );
 }
