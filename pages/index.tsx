@@ -24,6 +24,10 @@ export default function Home({ session }: {
           <meta property={"og:site_name"} content={"Snacc"}/>
           <meta property={"og:url"} content={"https://snacc.chat"}/>
           <meta property={"og:locale"} content={"en-US"}/>
+          <meta property={"og:title"} content={"Snacc | Some New Advanced Coder Chat"}/>
+          <meta property={"og:description"} content={"An open source social media network for programmers"}/>
+          <meta property={"description"} content={"An open source social media network for programmers"}/>
+          <meta property={"og:image"} content={"https://snacc.chat/Logo.png"}/>
       </Head>
       <Navbar session={session} activePage={"home"} />
     </div>

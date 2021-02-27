@@ -11,7 +11,7 @@ import Document, {
     render(): JSX.Element {
       return (
         <Html lang="en">
-          <Head />
+          <Head/>
           <body>
             <Main />
             <NextScript />
