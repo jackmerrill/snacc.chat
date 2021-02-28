@@ -138,16 +138,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
     res.status(200);
     res.end();
-  }
-  else {
-    res.json({
-      "content": {},
-      "newCursorPos": 0,
-      "hasNext":false
-    })
-    res.status(200);
-    res.end();
-  }
+//   }
+//   else {
+//     res.json({
+//       "content": {},
+//       "newCursorPos": 0,
+//       "hasNext":false
+//     })
+//     res.status(200);
+//     res.end();
+//   }
 
 
 }
