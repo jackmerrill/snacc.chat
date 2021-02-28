@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { getSession, Session } from "next-auth/client";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
-import { useState } from "react";
+import { FormEvent } from "react";
 import toast from 'react-hot-toast'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -27,22 +27,36 @@ export default function Home({ session }: {
         router.replace('/auth/login')
     }
 
-    const [value, setValue] = useState();
-
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        const target = e.target as any
+
         toast.promise(fetch('/api/post', {
             method: 'POST',
             credentials: 'same-origin',
             body: JSON.stringify({
-                content: e.target.content.value
+                content: target.content.value
             })
         }), {
             loading: 'Posting...',
-            success: (data) => (<>
-                <p>Successfully Saved!</p>
-                <span className="hidden">{router.replace(`/posts/${data.snowflake}`)}</span>
-            </>),
+            success: (data: Response) => {
+                const d: {
+                    id: number,
+                    snowflake: string,
+                    author: string,
+                    content: string,
+                    votes: number,
+                    createdAt: string,
+                    updatedAt: string
+                } = data.body as any
+                return (
+                    <>
+                        <p>Successfully Saved!</p>
+                        <span className="hidden">{router.replace(`/posts/${d.snowflake}`)}</span>
+                    </>
+                )
+            },
             error: 'Error creating post.'
         })
 
