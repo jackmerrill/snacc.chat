@@ -129,8 +129,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       Users[a.snowflake?a.snowflake:""] = a;
     }
     const hasNext = false;
-    console.log(queryResult[filtered.length - 1])
-    const newCursorPos = queryResult[filtered.length - 1].id-1;
+    console.log(queryResult)
+    let newCursorPos = 0;
+    if (queryResult.length > 0) {
+        console.log('no')
+        newCursorPos = queryResult[filtered.length - 1].id-1;
+    }
+    console.log(newCursorPos)
     res.json({
       "content": queryResult,
       "newCursorPos": newCursorPos,
