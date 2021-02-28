@@ -48,8 +48,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
   }
 
-  const filtered = queryResult.filter(function (el) {
+  let filtered = queryResult.filter(function (el) {
     return el != null;
+  });
+  filtered = filtered.filter(function (el) {
+    return el != {};
   });
   if(filtered.length>=1){
     let hasNextCount = 0;
@@ -115,8 +118,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       // @ts-ignore
       Users[a.snowflake?a.snowflake:""] = a;
     }
-    const hasNext = hasNextCount>=1;
-    const newCursorPos = queryResult[filtered.length - 1].id;
+    const hasNext = false;
+    const newCursorPos = queryResult[filtered.length - 1].id-1;
     res.json({
       "content": queryResult,
       "newCursorPos": newCursorPos,

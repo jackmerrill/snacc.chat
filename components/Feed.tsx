@@ -11,32 +11,38 @@ export default function Feed({ session }: {
   const [pos, setPos] = useState(0);
   const [hasNext, setHasNext] = useState(true);
   const [users, setUsers] = useState({});
+  console.log("Items: ",items);
+  console.log("Users: ",users);
+  console.log("Has Next: ", hasNext);
   const fetchData = async () => {
-    console.log(users);
-    var data = await fetch('/api/posts/count=20&sort=datea&pos=' + pos);
-    var fetchedJson = await data.json();
-    setPos(fetchedJson["newCursorPos"]);
-    setHasNext(fetchedJson["hasNext"]);
-    setUsers(Object.assign(users, fetchedJson["users"]));
-    setItems(items.concat(fetchedJson["content"]));
+    var data = await fetch('/api/posts?count=20&sort=datea&pos='+pos,{method: 'GET', credentials: 'same-origin'});
+    var j = await data.json();
+    setUsers(Object.assign(users, j["users"]));
+    setItems(items.concat(j["content"]));
+    setPos(j["newCursorPos"]);
+    setHasNext(j["hasNext"]);
+
 
   };
-
+  fetchData();
   return (
-    <InfiniteScroll
-      dataLength={items.length+1} //This is important field to render the next data
-      hasMore={true}
-      next={fetchData}
-      loader={<h4>Loading...</h4>}
-      endMessage={
-        <p style={{textAlign: 'center'}}>
-          <b>Yay! You have seen it all</b>
-        </p>
-      }
-    >
-      {items.map((i, index) => (
-        <PostComponent key={i.snowflake} d={i} a={users[String(i.snowflake)]} session={session} />
-      ))}
-    </InfiniteScroll>
+    <div>
+      <InfiniteScroll
+        dataLength={items.length-1} //This is important field to render the next data
+        hasMore={false}
+        next={fetchData}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{textAlign: 'center'}}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        {items.map((i, index) => (
+          <PostComponent key={i.snowflake} d={i} a={users[i.author]} session={session} />
+        ))}
+      </InfiniteScroll>
+    </div>
+
   );
 }
