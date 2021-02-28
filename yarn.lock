@@ -799,6 +799,13 @@
     "@types/react" "*"
     immutable "~3.7.4"
 
+"@types/flake-idgen@^0.1.30":
+  version "0.1.30"
+  resolved "https://registry.yarnpkg.com/@types/flake-idgen/-/flake-idgen-0.1.30.tgz#5e9b42e9f60106ee67fa487c836d331233d99a92"
+  integrity sha512-wPNqOGLe7Gu6EeWbYcTkPeAJxMJZq5qwLA9v7QkGxv6b1Kcxzf1IVQgljK6yRlEsHQMXjWKi12cjzH21KQygFw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
