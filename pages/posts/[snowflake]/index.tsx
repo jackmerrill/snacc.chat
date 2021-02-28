@@ -5,6 +5,8 @@ import Head from 'next/head'
 import { Post, PrismaClient, User } from '@prisma/client'
 import markdownToTxt from 'markdown-to-txt';
 import PostComponent from '../../../components/Post';
+import { useRouter } from "next/router";
+import NotFound from "../../404";
 const prisma = new PrismaClient();
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -16,6 +18,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             snowflake: String(snowflake)
         }
     })
+
+    if (!data) {
+        return {
+            props: {
+                session
+            }
+        }
+    }
 
     const d = {
         id: data?.id,
@@ -66,7 +76,11 @@ export default function PostPage({ session, d, a }: {
   d: Post,
   a: User
 }) {
-    console.log(a)
+    const router = useRouter()
+
+    if (!d || !a) {
+        return <NotFound />
+    }
 
     return (
         <div className="h-screen w-screen bg-gray-900">

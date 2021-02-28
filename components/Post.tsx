@@ -1,7 +1,10 @@
+/* eslint-disable react/display-name */
 import { Post, User } from "@prisma/client";
 import { Session } from "next-auth/client";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
+import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import Downvote from "./icons/Downvote";
 import PencilIcon from "./icons/Pencil";
@@ -13,6 +16,8 @@ export default function PostComponent({ a, d, session }: {
     d: Post,
     session: Session
 }): JSX.Element {
+    const router = useRouter();
+
     return (
         <div className="my-4 text-white rounded-xl bg-gray-800 p-12">
             <div className="inline-flex mb-4 items-center space-x-3">
@@ -30,11 +35,27 @@ export default function PostComponent({ a, d, session }: {
                                 <PencilIcon />
                             </a>
                         </Link>
-                        <Link href={`/posts/${d.snowflake}/delete`}>
-                            <a className="hover:text-indigo-600 transition duration-200">
-                                <TrashIcon />
-                            </a>
-                        </Link>
+                        <a onClick={(e) => {
+                            e.preventDefault()
+
+                            toast.promise(fetch(`/api/post/${d.snowflake}`, {
+                                method: 'DELETE',
+                                credentials: 'same-origin',
+                            }), {
+                                loading: 'Deleting...',
+                                success: () => {
+                                    return (
+                                        <>
+                                            <p>Deleted!</p>
+                                            <span className="hidden">{setTimeout(async () => router.replace('/'), 3000)}</span>
+                                        </>
+                                    )
+                                },
+                                error: 'Something went wrong.'
+                            })
+                        }} className="hover:text-indigo-600 transition duration-200">
+                            <TrashIcon />
+                        </a>
                     </div>
                 )}
             </div>
