@@ -43,16 +43,6 @@ export default function Home({ session }: {
         }), {
             loading: 'Posting...',
             success: (data: Response) => {
-                // const d: {
-                //     id: number,
-                //     snowflake: string,
-                //     author: string,
-                //     content: string,
-                //     votes: number,
-                //     createdAt: string,
-                //     updatedAt: string
-                // } = await data.json() as any
-
                 return (
                     <>
                         <p>Posted!</p>
