@@ -5,7 +5,6 @@ import Head from 'next/head'
 import { Post, PrismaClient, User } from '@prisma/client'
 import markdownToTxt from 'markdown-to-txt';
 import PostComponent from '../../../components/Post';
-import { useRouter } from "next/router";
 import NotFound from "../../404";
 const prisma = new PrismaClient();
 
@@ -76,8 +75,6 @@ export default function PostPage({ session, d, a }: {
   d: Post,
   a: User
 }) {
-    const router = useRouter()
-
     if (!d || !a) {
         return <NotFound />
     }
