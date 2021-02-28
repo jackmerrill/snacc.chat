@@ -3,7 +3,9 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 import { PrismaClient } from '@prisma/client';
-import Adapters from 'next-auth/adapters';
+// import Adapters from 'next-auth/adapters';
+
+import Adapter from '../../../lib/Adapter';
 
 const prisma = new PrismaClient();
 
@@ -15,5 +17,13 @@ export default (req: NextApiRequest, res: NextApiResponse): Promise<void> => Nex
     }),
   ],
   
-  adapter: Adapters.Prisma.Adapter({ prisma })
+  adapter: Adapter.Adapter({ prisma }),
+
+  callbacks: {
+    async session(session, user) {
+        session.user.snowflake = user.snowflake
+        console.log(session)
+        return session
+    },
+  }
 });

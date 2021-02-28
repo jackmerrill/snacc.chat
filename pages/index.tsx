@@ -4,13 +4,13 @@ import Navbar from "../components/Navbar";
 import Head from 'next/head'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-
-  return {
-    props: {
-      session
+    const session = await getSession(context)
+    // console.log(session)
+    return {
+        props: {
+            session
+        }
     }
-  }
 };
 
 export default function Home({ session }: {

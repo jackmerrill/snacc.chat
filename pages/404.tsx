@@ -70,7 +70,7 @@ export default function NotFound() {
               <h2 className="hidden md:block text-5xl text-white font-extrabold" data-text="What you are looking for is not here.">What you are looking for is not here.</h2>
           </div>
 
-          <footer className="align-text-bottom justify-items-center">
+          <footer className="align-text-bottom mb-3 justify-items-center">
             <Link href="/" passHref>
               <a className="font-extrabold text-gray-500">Why are you still here?</a>
             </Link>
