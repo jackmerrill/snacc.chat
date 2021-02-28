@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { getSession, Session } from "next-auth/client";
 import Navbar from "../components/Navbar";
 import Head from 'next/head'
+import Feed from "../components/Feed"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context)
@@ -32,7 +33,7 @@ export default function Home({ session }: {
         </Head>
         <Navbar session={session} activePage={"home"} />
         <div className="mx-auto lg:px-72 md:px-36 sm:px-24 px-12">
-            {/* post stuff here */}
+            <Feed session={session}/>
         </div>
     </div>
   );
