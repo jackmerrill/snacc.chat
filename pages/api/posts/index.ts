@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const FixedPos = pos?pos:0;
   const FixedSort = sort?sort:"dated";
   const FixedCount = count?((Number(pos) >= 100)?100:count):20;
-  console.log("Pos: "+FixedPos+" Sort: "+FixedSort+" Count: "+FixedCount)
+
   let orderby = {};
   if(String(FixedSort).toLowerCase() == "dated") {
     orderby = {createdAt: "desc"}
@@ -93,12 +93,35 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       })
     }
+    const Users = {};
+    for (const post of queryResult) {
+      const author = await prisma.user.findFirst({
+        where: {
+          snowflake: post.author
+        }
+      })
+
+      const a = {
+        id: author?.id,
+        name: author?.name,
+        snowflake: author?.snowflake,
+        email: author?.email,
+        emailVerified: author?.emailVerified,
+        image: author?.image,
+        createdAt: author?.createdAt.toUTCString(),
+        updatedAt: author?.createdAt.toUTCString(),
+      }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      Users[a.snowflake?a.snowflake:""] = a;
+    }
     const hasNext = hasNextCount>=1;
     const newCursorPos = queryResult[filtered.length - 1].id;
     res.json({
       "content": queryResult,
       "newCursorPos": newCursorPos,
-      "hasNext":hasNext
+      "hasNext":hasNext,
+      "users": Users
     })
     res.status(200);
     res.end();
