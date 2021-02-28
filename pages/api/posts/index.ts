@@ -3,11 +3,13 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { count, sort, pos } = req.query;
+  const { count, sort, pos, user } = req.query;
   const FixedPos = pos?pos:0;
   const FixedSort = sort?sort:"dated";
   const FixedCount = count?((Number(pos) >= 100)?100:count):20;
+  const FixedUser = user?user:null
 
   let orderby = {};
   if(String(FixedSort).toLowerCase() == "dated") {
@@ -32,10 +34,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
   let queryResult;
   if(FixedPos==0){
-    queryResult = await prisma.post.findMany({
-      take: Number(FixedCount),
-      orderBy: orderby
-    })
+    if (FixedUser) {
+        const query = await prisma.post.findMany({
+            take: Number(FixedCount),
+            orderBy: orderby,
+        })
+        queryResult = query.filter((post) => post.author === FixedUser)
+    } else {
+        queryResult = await prisma.post.findMany({
+            take: Number(FixedCount),
+            orderBy: orderby,
+        })
+    }
   }
   else {
     queryResult = await prisma.post.findMany({

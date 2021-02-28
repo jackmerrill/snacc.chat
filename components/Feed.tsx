@@ -19,7 +19,7 @@ export default function Feed({ session }: {
       return;
     }
     else {
-      const data = await fetch('/api/posts?count=20&sort=datea&pos='+pos,{method: 'GET', credentials: 'same-origin'});
+      const data = await fetch(`/api/posts?count=20&sort=datea&pos=${pos}`,{method: 'GET', credentials: 'same-origin'});
       const j = await data.json();
       setUsers(Object.assign(users, j["users"]));
       setItems(items.concat(j["content"]));
@@ -44,7 +44,7 @@ export default function Feed({ session }: {
           </p>
         }
       >
-        {items.map((i: Post, index) => (
+        {items.map((i: Post) => (
           <PostComponent key={i.snowflake} d={i} a={users[i.author]} session={session} />
         ))}
       </InfiniteScroll>
