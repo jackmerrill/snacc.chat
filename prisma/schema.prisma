@@ -66,8 +66,8 @@ model VerificationRequest {
 
 model Post {
   id          Int       @id @default(autoincrement())
-  snowflake   String
-  author      User
+  snowflake   String    @unique
+  author      String
   content     String
   votes       Int       @default(1)
   comments    Comment[]
@@ -77,8 +77,8 @@ model Post {
 
 model Comment {
   id          Int       @id @default(autoincrement())
-  snowflake   String
-  author      User
+  snowflake   String    @unique
+  author      String
   content     String
   votes       Int
   createdAt   DateTime  @default(now())

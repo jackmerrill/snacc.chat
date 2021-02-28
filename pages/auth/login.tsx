@@ -42,7 +42,7 @@ export default function Login(): JSX.Element {
                     </button>
                   )}
                   {session && !loading && (
-                    <div className="flex items-center justify-center w-full bg-indigo-500 transition duration-300 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+                    <div className="flex items-center justify-center w-full bg-gray-800 transition duration-300 hover:bg-gray-900 focus:bg-gray-900 text-white rounded-lg px-3 py-3 font-semibold">
                       <span>
                         Signed in as
                         {' '}
