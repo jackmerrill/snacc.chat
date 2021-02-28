@@ -11,7 +11,7 @@ const flakeIdGen = new FlakeId({ epoch: 1609459200 });
 const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { content } = req.body;
+  const { content } = JSON.parse(req.body);
   const session = await getSession({ req })
   const method = req.method;
   if (session) {
