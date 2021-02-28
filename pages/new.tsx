@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { GetServerSideProps } from "next";
 import { getSession, Session } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -30,14 +31,21 @@ export default function Home({ session }: {
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
-
-        fetch('/api/posts', {
+        toast.promise(fetch('/api/post', {
             method: 'POST',
             credentials: 'same-origin',
-            data: {
-
-            }
+            body: JSON.stringify({
+                content: e.target.content.value
+            })
+        }), {
+            loading: 'Posting...',
+            success: (data) => (<>
+                <p>Successfully Saved!</p>
+                <span className="hidden">{router.replace(`/posts/${data.snowflake}`)}</span>
+            </>),
+            error: 'Error creating post.'
         })
+
     }
 
     return (
