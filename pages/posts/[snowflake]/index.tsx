@@ -7,16 +7,6 @@ import markdownToTxt from 'markdown-to-txt';
 import PostComponent from '../../../components/Post';
 const prisma = new PrismaClient();
 
-interface PostType {
-    id: number,
-    snowflake: string,
-    author: string,
-    content: string,
-    votes: number,
-    createdAt: string,
-    updatedAt: string
-}
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { snowflake } = context.query
     const session = await getSession(context)

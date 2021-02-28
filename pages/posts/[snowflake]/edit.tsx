@@ -55,7 +55,9 @@ export default function Home({ session, d }: {
 
         const target = e.target as any
 
-        console.log(target.content.value)
+        console.log(JSON.stringify({
+            content: target.content.value
+        }))
 
         toast.promise(fetch(`/api/post/${router.query.snowflake}`, {
             method: 'POST',
