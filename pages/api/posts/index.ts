@@ -61,9 +61,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let filtered = queryResult.filter(function (el) {
     return el != null;
   });
-  filtered = filtered.filter(function (el) {
-    return el != {};
-  });
+//   filtered = filtered.filter(function (el) {
+//     return el != {};
+//   });
   if(filtered.length>=1){
     let hasNextCount = 0;
     if(String(FixedSort).toLowerCase() == "dated") {
