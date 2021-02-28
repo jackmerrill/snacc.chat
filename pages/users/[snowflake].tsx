@@ -55,7 +55,10 @@ export default function UserPage({ session, u }: {
             return;
         }
         else {
-            const data = await fetch(new URL(`/api/posts?count=20&sort=datea&pos=${pos}&user=${router.query.snowflake}`).toString(),{method: 'GET', credentials: 'same-origin'});
+            const dev = process.env.NODE_ENV !== 'production';
+
+            const server = dev ? 'http://localhost:3000' : 'https://snacc.chat';
+            const data = await fetch(`${server}/api/posts?count=20&sort=datea&pos=${pos}&user=${router.query.snowflake}`,{method: 'GET', credentials: 'same-origin'});
             const j = await data.json();
             setUsers(Object.assign(users, j["users"]));
             setItems(items.concat(j["content"]));
@@ -81,7 +84,7 @@ export default function UserPage({ session, u }: {
             </Head>
             <Navbar session={session} activePage={"home"} />
             <div className="mx-auto lg:px-72 md:px-36 sm:px-24 px-12">
-                <div className="rounded-xl bg-gray-800 p-12">
+                <div className="rounded-xl bg-gray-800 p-12 mt-4">
                     <div className="inline-flex align-middle items-center space-x-4">
                         <img src={u.image as string} className="rounded-full" width="64px" height="64px" />
                         <h2 className="font-bold text-white text-xl">{u.name}</h2>

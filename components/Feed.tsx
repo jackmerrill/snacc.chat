@@ -19,12 +19,15 @@ export default function Feed({ session }: {
       return;
     }
     else {
-      const data = await fetch(new URL(`/api/posts?count=20&sort=datea&pos=${pos}`).toString(),{method: 'GET', credentials: 'same-origin'});
-      const j = await data.json();
-      setUsers(Object.assign(users, j["users"]));
-      setItems(items.concat(j["content"]));
-      setPos(j["newCursorPos"]);
-      setHasNext(j["hasNext"]);
+        const dev = process.env.NODE_ENV !== 'production';
+
+        const server = dev ? 'http://localhost:3000' : 'https://snacc.chat';
+        const data = await fetch(`${server}/api/posts?count=20&sort=datea&pos=${pos}`,{method: 'GET', credentials: 'same-origin'});
+        const j = await data.json();
+        setUsers(Object.assign(users, j["users"]));
+        setItems(items.concat(j["content"]));
+        setPos(j["newCursorPos"]);
+        setHasNext(j["hasNext"]);
     }
 
 
