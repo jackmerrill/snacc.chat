@@ -15,12 +15,18 @@ export default function Feed({ session }: {
   console.log("Users: ",users);
   console.log("Has Next: ", hasNext);
   const fetchData = async () => {
-    const data = await fetch('/api/posts?count=20&sort=datea&pos='+pos,{method: 'GET', credentials: 'same-origin'});
-    const j = await data.json();
-    setUsers(Object.assign(users, j["users"]));
-    setItems(items.concat(j["content"]));
-    setPos(j["newCursorPos"]);
-    setHasNext(j["hasNext"]);
+    if(!hasNext){
+      return;
+    }
+    else {
+      const data = await fetch('/api/posts?count=20&sort=datea&pos='+pos,{method: 'GET', credentials: 'same-origin'});
+      const j = await data.json();
+      setUsers(Object.assign(users, j["users"]));
+      setItems(items.concat(j["content"]));
+      setPos(j["newCursorPos"]);
+      setHasNext(j["hasNext"]);
+    }
+
 
 
   };
@@ -29,7 +35,7 @@ export default function Feed({ session }: {
     <div>
       <InfiniteScroll
         dataLength={items.length-1} //This is important field to render the next data
-        hasMore={false}
+        hasMore={hasNext}
         next={fetchData}
         loader={<h4>Loading...</h4>}
         endMessage={
