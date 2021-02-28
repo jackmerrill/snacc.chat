@@ -64,47 +64,48 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 //   filtered = filtered.filter(function (el) {
 //     return el != {};
 //   });
-  if(filtered.length>=1){
-    if(String(FixedSort).toLowerCase() == "dated") {
-      orderby = {"createdAt":"desc" }
-      hasNextCount = await prisma.post.count({
-        where: {
-          createdAt: {
-            lt: queryResult[filtered.length - 1].createdAt
-          }
-        }
-      })
-    }
-    else if(String(FixedSort).toLowerCase() == "datea") {
-      orderby = {"createdAt":"asc" }
-      hasNextCount = await prisma.post.count({
-        where: {
-          createdAt: {
-            gt: queryResult[filtered.length - 1].createdAt
-          }
-        }
-      })
-    }
-    else if(String(FixedSort).toLowerCase() == "liked"){
-      orderby = {"votes":"desc"}
-      hasNextCount = await prisma.post.count({
-        where: {
-          votes: {
-            lt: queryResult[filtered.length - 1].votes
-          }
-        }
-      })
-    }
-    else if(String(FixedSort).toLowerCase() == "likea"){
-      orderby = {"votes":"asc"}
-      hasNextCount = await prisma.post.count({
-        where: {
-          votes: {
-            gt: queryResult[filtered.length - 1].votes
-          }
-        }
-      })
-    }
+//   if(filtered.length>=1){
+//     let hasNextCount = 0;
+//     if(String(FixedSort).toLowerCase() == "dated") {
+//       orderby = {"createdAt":"desc" }
+//       hasNextCount = await prisma.post.count({
+//         where: {
+//           createdAt: {
+//             lt: queryResult[filtered.length - 1].createdAt
+//           }
+//         }
+//       })
+//     }
+//     else if(String(FixedSort).toLowerCase() == "datea") {
+//       orderby = {"createdAt":"asc" }
+//       hasNextCount = await prisma.post.count({
+//         where: {
+//           createdAt: {
+//             gt: queryResult[filtered.length - 1].createdAt
+//           }
+//         }
+//       })
+//     }
+//     else if(String(FixedSort).toLowerCase() == "liked"){
+//       orderby = {"votes":"desc"}
+//       hasNextCount = await prisma.post.count({
+//         where: {
+//           votes: {
+//             lt: queryResult[filtered.length - 1].votes
+//           }
+//         }
+//       })
+//     }
+//     else if(String(FixedSort).toLowerCase() == "likea"){
+//       orderby = {"votes":"asc"}
+//       hasNextCount = await prisma.post.count({
+//         where: {
+//           votes: {
+//             gt: queryResult[filtered.length - 1].votes
+//           }
+//         }
+//       })
+//     } commenting this out so we can fix it later
     const Users = {};
     for (const post of queryResult) {
       const author = await prisma.user.findFirst({
