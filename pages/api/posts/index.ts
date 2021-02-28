@@ -65,7 +65,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 //     return el != {};
 //   });
   if(filtered.length>=1){
-    let hasNextCount = 0;
     if(String(FixedSort).toLowerCase() == "dated") {
       orderby = {"createdAt":"desc" }
       hasNextCount = await prisma.post.count({
