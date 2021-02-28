@@ -1,8 +1,8 @@
 import { useState } from "react";
 import PostComponent from "./Post";
-import {Post, User} from "@prisma/client";
 import {Session} from "next-auth/client";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Post, User } from "@prisma/client";
 
 export default function Feed({ session }: {
   session: Session
@@ -10,13 +10,13 @@ export default function Feed({ session }: {
   const [items, setItems] = useState([]);
   const [pos, setPos] = useState(0);
   const [hasNext, setHasNext] = useState(true);
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState<Record<string, User>>({});
   console.log("Items: ",items);
   console.log("Users: ",users);
   console.log("Has Next: ", hasNext);
   const fetchData = async () => {
-    var data = await fetch('/api/posts?count=20&sort=datea&pos='+pos,{method: 'GET', credentials: 'same-origin'});
-    var j = await data.json();
+    const data = await fetch('/api/posts?count=20&sort=datea&pos='+pos,{method: 'GET', credentials: 'same-origin'});
+    const j = await data.json();
     setUsers(Object.assign(users, j["users"]));
     setItems(items.concat(j["content"]));
     setPos(j["newCursorPos"]);
@@ -38,7 +38,7 @@ export default function Feed({ session }: {
           </p>
         }
       >
-        {items.map((i, index) => (
+        {items.map((i: Post, index) => (
           <PostComponent key={i.snowflake} d={i} a={users[i.author]} session={session} />
         ))}
       </InfiniteScroll>
