@@ -45,7 +45,7 @@ export default function Feed({ session }: {
         }
       >
         {items.map((i: Post) => (
-          <PostComponent key={i.snowflake} d={i} a={users[i.author]} session={session} />
+            <PostComponent key={i.snowflake} d={i} a={users[i.author]} session={session} />
         ))}
       </InfiniteScroll>
     </div>
