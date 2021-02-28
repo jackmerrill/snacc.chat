@@ -94,7 +94,7 @@ export default function PostPage({ session, d, a }: {
                 <meta property={"theme-color"} content={"#1F2937"}/>
             </Head>
             <Navbar session={session} activePage={"home"} />
-            <div className="mx-auto lg:px-72 md:px-36 sm:px-24 px-12">
+            <div className="mx-auto lg:px-72 md:px-36 sm:px-24 px-12 ">
                 <PostComponent d={d} a={a} session={session} />
             </div>
         </div>

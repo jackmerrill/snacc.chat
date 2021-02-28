@@ -18,7 +18,7 @@ export default function Home({ session }: {
   session: Session,
 }) {
   return (
-    <div className="h-screen w-screen bg-gray-900">
+    <div className="h-screen bg-gray-900 ">
         <Head>
             <title>Snacc</title>
             <meta property={"og:type"} content={"website"}/>
@@ -32,7 +32,7 @@ export default function Home({ session }: {
             <meta property={"theme-color"} content={"#1F2937"}/>
         </Head>
         <Navbar session={session} activePage={"home"} />
-        <div className="mx-auto lg:px-72 md:px-36 sm:px-24 px-12">
+        <div className="mx-auto lg:px-72 md:px-36 sm:px-24 p-5 px-12 bg-gray-900">
             <Feed session={session}/>
         </div>
     </div>
