@@ -22,7 +22,6 @@ export default (req: NextApiRequest, res: NextApiResponse): Promise<void> => Nex
   callbacks: {
     async session(session, user) {
         session.user.snowflake = user.snowflake
-        console.log(session)
         return session
     },
   }
