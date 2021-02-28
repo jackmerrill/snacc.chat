@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         data:{
           snowflake: intformat(flakeIdGen.next(), 'dec'),
           content: content,
-
+          author: session.user.snowflake
         }
       })
       res.json(post);
