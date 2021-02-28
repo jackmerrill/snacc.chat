@@ -64,8 +64,8 @@ export default function NotFound() {
         <div className="flex min-h-screen flex-col items-center justify-center text-center overlay">
           <div className="m-auto z-10 glitchContainer">
               <h1 className="text-8xl font-extrabold text-white mb-3 glitch" data-text="ERROR 404">ERROR 404</h1>
-            <div className="lg:inline-block flex justify-center">
-              <NotFoundIllustration width="500" height="500"/>
+            <div className="lg:inline-block flex justify-center my-4">
+              <NotFoundIllustration height="300px" width="100%"/>
             </div>
               <h2 className="hidden md:block text-5xl text-white font-extrabold" data-text="What you are looking for is not here.">What you are looking for is not here.</h2>
           </div>
