@@ -30,14 +30,14 @@ export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) 
   }
   if (session) {
 
-    if(method == "POST"){
+    if(method == "POST" || method == "DELETE"){
       const updatePost = await prisma.post.findFirst({
         where: {
           snowflake:String(snowflake),
           author:String(session.user.snowflake)
         }
       })
-      if(updatePost){
+      if(updatePost && method != "DELETE"){
         const updatedPost = await prisma.post.update({
           where: {
             snowflake:String(snowflake)
@@ -47,6 +47,17 @@ export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) 
           }
         })
         res.json(updatedPost);
+        res.status(200);
+        res.end();
+        return
+      }
+      else if(updatePost && method == "DELETE"){
+        await prisma.post.delete({
+          where: {
+            snowflake:String(snowflake)
+          }
+        })
+
         res.status(200);
         res.end();
         return
