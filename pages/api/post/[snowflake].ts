@@ -45,7 +45,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) 
             snowflake:String(snowflake)
           },
           data: {
-            content: data.content
+            content: data.content,
+            updatedAt: new Date()
           }
         })
         res.json(updatedPost);
