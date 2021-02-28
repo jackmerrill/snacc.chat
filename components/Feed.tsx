@@ -33,7 +33,7 @@ export default function Feed({ session }: {
 
 
   };
-  fetchData();
+  fetchData().catch();
   return (
     <div>
       <InfiniteScroll
