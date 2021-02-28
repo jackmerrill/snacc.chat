@@ -58,7 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
   }
 
-  let filtered = queryResult.filter(function (el) {
+  const filtered = queryResult.filter(function (el) {
     return el != null;
   });
 //   filtered = filtered.filter(function (el) {
