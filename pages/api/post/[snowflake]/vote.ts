@@ -3,9 +3,7 @@ import {getSession} from "next-auth/client";
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 
-type SnowflakeData = { snowflake:string }
-
-export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { query: { snowflake } } = req;
   const data = req.body.vote
   const session = await getSession({ req })
@@ -32,44 +30,96 @@ export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) 
             },
         })
 
-        if (user?.votes.includes(updatePost.snowflake)) {
-            res.status(204);
-            res.end();
-            return
-        }
-
-        user?.votes.push(updatePost.snowflake)
-        await prisma.user.update({
-            where: {
-                id: user?.id
-            },
-            data: {
-                votes: user?.votes
-            }
-        })
         if (data === "1") {
-            await prisma.post.update({
+            let alreadyVoted;
+            if (user?.upvotes.includes(updatePost.snowflake)) {
+                alreadyVoted = true
+                res.json({
+                    alreadyVoted: true
+                })
+                user?.upvotes.splice(user?.upvotes.indexOf(updatePost.snowflake), 1)
+                res.status(204);
+                res.end();
+                return
+            }
+    
+            user?.upvotes.push(updatePost.snowflake)
+            await prisma.user.update({
                 where: {
-                  snowflake:String(snowflake)
+                    id: user?.id
                 },
                 data: {
-                  votes: updatePost.votes + 1
+                    upvotes: user?.upvotes
                 }
             })
+            if (alreadyVoted) {
+                await prisma.post.update({
+                    where: {
+                        snowflake:String(snowflake)
+                    },
+                    data: {
+                        votes: updatePost.votes - 1
+                    }
+                })
+                res.status(204);
+                res.end()
+            } else {
+                await prisma.post.update({
+                    where: {
+                        snowflake:String(snowflake)
+                    },
+                    data: {
+                        votes: updatePost.votes + 1
+                    }
+                })
+            }
         }
         else if (data === "-1") {
-            await prisma.post.update({
+            let alreadyVoted;
+            if (user?.upvotes.includes(updatePost.snowflake)) {
+                alreadyVoted = true
+                user?.upvotes.splice(user?.upvotes.indexOf(updatePost.snowflake), 1)
+                res.status(200);
+                res.json({
+                    alreadyVoted: true
+                })
+                res.end();
+                return
+            }
+    
+            user?.upvotes.push(updatePost.snowflake)
+            await prisma.user.update({
                 where: {
-                  snowflake:String(snowflake)
+                    id: user?.id
                 },
                 data: {
-                  votes: updatePost.votes - 1
+                    downvotes: user?.upvotes
                 }
             })
+            if (alreadyVoted) {
+                await prisma.post.update({
+                    where: {
+                        snowflake:String(snowflake)
+                    },
+                    data: {
+                        votes: updatePost.votes + 1
+                    }
+                })
+                res.status(204);
+                res.end()
+            } else {
+                await prisma.post.update({
+                    where: {
+                        snowflake:String(snowflake)
+                    },
+                    data: {
+                        votes: updatePost.votes - 1
+                    }
+                })
+            }
         }
-        res.status(200);
-        res.end();
-        return
+        // res.end();
+        // return
       }
       else {
         res.status(404);
@@ -87,5 +137,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) 
     // Not Signed in
     res.status(401)
   }
-  res.end();
+//   res.end();
 }

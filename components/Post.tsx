@@ -82,13 +82,19 @@ export default function PostComponent({ a, d, session }: {
                             body: JSON.stringify({
                                 "vote": "1"
                             })
-                        }).then((data) => {
-                            if (data.status === 204) {
-                                return toast.error("You've already voted for this post!")
+                        }).then(async (data) => {
+                            console.log(data.status)
+                            if (data.status === 200) {
+                                const d = await data.json()
+                                if (d.alreadyVoted) {
+                                    console.log("bddddddd")
+                                    setVotes(votes - 1)
+                                    return toast.error("You've already voted for this post!")
+                                }
+                                setVotes(votes + 1)
                             } else if (data.status === 403) {
                                 return toast.error("You are not signed in!")
                             }
-                            setVotes(votes + 1)
                         })
                     }}>
                         <Upvote />
@@ -104,13 +110,17 @@ export default function PostComponent({ a, d, session }: {
                             body: JSON.stringify({
                                 "vote": "-1"
                             })
-                        }).then((data) => {
+                        }).then(async (data) => {
                             if (data.status === 204) {
-                                return toast.error("You've already voted for this post!")
+                                const d = await data.json()
+                                if (d.alreadyVoted) {
+                                    setVotes(votes + 1)
+                                    return toast.error("You've already voted for this post!")
+                                }
+                                setVotes(votes - 1)
                             } else if (data.status === 403) {
                                 return toast.error("You are not signed in!")
                             }
-                            setVotes(votes - 1)
                         })
                     }}>
                         <Downvote />

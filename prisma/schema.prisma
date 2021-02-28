@@ -44,7 +44,8 @@ model User {
   id            Int       @default(autoincrement()) @id
   name          String?
   snowflake     String?
-  votes         String[]
+  upvotes       String[]
+  downvotes     String[]
   email         String?   @unique
   emailVerified DateTime? @map(name: "email_verified")
   image         String?

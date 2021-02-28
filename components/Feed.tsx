@@ -25,7 +25,7 @@ export default function Feed({ session }: {
         const data = await fetch(`${server}/api/posts?count=20&sort=datea&pos=${pos}`,{method: 'GET', credentials: 'same-origin'});
         const j = await data.json();
         setUsers(Object.assign(users, j["users"]));
-        setItems(items.concat(j["content"]));
+        setItems(j["content"]);
         setPos(j["newCursorPos"]);
         setHasNext(j["hasNext"]);
     }
@@ -40,7 +40,11 @@ export default function Feed({ session }: {
         dataLength={items.length-1} //This is important field to render the next data
         hasMore={hasNext}
         next={fetchData}
-        loader={<h4>Loading...</h4>}
+        loader={
+            <p style={{textAlign: 'center'}}>
+                <b className="text-white">Fetching newest posts...</b>
+            </p>
+        }
         endMessage={
           <p style={{textAlign: 'center'}}>
             <b className="text-white">Yay! You have seen it all</b>

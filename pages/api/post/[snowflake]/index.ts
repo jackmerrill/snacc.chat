@@ -7,7 +7,7 @@ type SnowflakeData = { snowflake:string }
 
 export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) => {
   const { query: { snowflake } } = req;
-  const data = req.body
+  const data = JSON.parse(req.body)
   const session = await getSession({ req })
   const method = req.method;
   if(!snowflake){

@@ -59,53 +59,51 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const filtered = queryResult.filter(function (el) {
-    return el != null;
+    return (el != null || el != {})
   });
-//   filtered = filtered.filter(function (el) {
-//     return el != {};
-//   });
-//   if(filtered.length>=1){
-//     let hasNextCount = 0;
-//     if(String(FixedSort).toLowerCase() == "dated") {
-//       orderby = {"createdAt":"desc" }
-//       hasNextCount = await prisma.post.count({
-//         where: {
-//           createdAt: {
-//             lt: queryResult[filtered.length - 1].createdAt
-//           }
-//         }
-//       })
-//     }
-//     else if(String(FixedSort).toLowerCase() == "datea") {
-//       orderby = {"createdAt":"asc" }
-//       hasNextCount = await prisma.post.count({
-//         where: {
-//           createdAt: {
-//             gt: queryResult[filtered.length - 1].createdAt
-//           }
-//         }
-//       })
-//     }
-//     else if(String(FixedSort).toLowerCase() == "liked"){
-//       orderby = {"votes":"desc"}
-//       hasNextCount = await prisma.post.count({
-//         where: {
-//           votes: {
-//             lt: queryResult[filtered.length - 1].votes
-//           }
-//         }
-//       })
-//     }
-//     else if(String(FixedSort).toLowerCase() == "likea"){
-//       orderby = {"votes":"asc"}
-//       hasNextCount = await prisma.post.count({
-//         where: {
-//           votes: {
-//             gt: queryResult[filtered.length - 1].votes
-//           }
-//         }
-//       })
-//     } commenting this out so we can fix it later
+  if(filtered.length>=1){
+    let hasNextCount = 0;
+    if(String(FixedSort).toLowerCase() == "dated") {
+      orderby = {"createdAt":"desc" }
+      hasNextCount = await prisma.post.count({
+        where: {
+          createdAt: {
+            lt: queryResult[filtered.length - 1].createdAt
+          }
+        }
+      })
+    }
+    else if(String(FixedSort).toLowerCase() == "datea") {
+      orderby = {"createdAt":"asc" }
+      hasNextCount = await prisma.post.count({
+        where: {
+          createdAt: {
+            gt: queryResult[filtered.length - 1].createdAt
+          }
+        }
+      })
+    }
+    else if(String(FixedSort).toLowerCase() == "liked"){
+      orderby = {"votes":"desc"}
+      hasNextCount = await prisma.post.count({
+        where: {
+          votes: {
+            lt: queryResult[filtered.length - 1].votes
+          }
+        }
+      })
+    }
+    else if(String(FixedSort).toLowerCase() == "likea"){
+      orderby = {"votes":"asc"}
+      hasNextCount = await prisma.post.count({
+        where: {
+          votes: {
+            gt: queryResult[filtered.length - 1].votes
+          }
+        }
+      })
+    }
+    console.log(hasNextCount)
     const Users = {};
     for (const post of queryResult) {
       const author = await prisma.user.findFirst({
@@ -129,13 +127,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       Users[a.snowflake?a.snowflake:""] = a;
     }
     const hasNext = false;
-    console.log(queryResult)
     let newCursorPos = 0;
     if (queryResult.length > 0) {
-        console.log('no')
         newCursorPos = queryResult[filtered.length - 1].id-1;
     }
-    console.log(newCursorPos)
     res.json({
       "content": queryResult,
       "newCursorPos": newCursorPos,
@@ -144,16 +139,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
     res.status(200);
     res.end();
-//   }
-//   else {
-//     res.json({
-//       "content": {},
-//       "newCursorPos": 0,
-//       "hasNext":false
-//     })
-//     res.status(200);
-//     res.end();
-//   }
+  }
+  else {
+    res.json({
+      "content": {},
+      "newCursorPos": 0,
+      "hasNext":false
+    })
+    res.status(200);
+    res.end();
+  }
 
 
 }
