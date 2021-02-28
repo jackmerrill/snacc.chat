@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 type SnowflakeData = { snowflake:string }
 
 export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) => {
-  const { query: { snowflake } , body: { content } } = req;
+  const { query: { snowflake } } = req;
+  const data = JSON.parse(req.body);
   const session = await getSession({ req })
   const method = req.method;
   if(!snowflake){
@@ -38,12 +39,13 @@ export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) 
         }
       })
       if(updatePost && method != "DELETE"){
+          console.log(data)
         const updatedPost = await prisma.post.update({
           where: {
             snowflake:String(snowflake)
           },
           data: {
-            content: content
+            content: data.content
           }
         })
         res.json(updatedPost);

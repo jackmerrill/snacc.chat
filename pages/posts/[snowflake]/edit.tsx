@@ -63,7 +63,7 @@ export default function Home({ session, d }: {
             method: 'POST',
             credentials: 'same-origin',
             body: JSON.stringify({
-                content: target.content.value
+                "content": target.content.value
             })
         }), {
             loading: 'Saving...',
