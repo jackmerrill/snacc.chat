@@ -22,7 +22,7 @@ export default function Feed({ session }: {
         const dev = process.env.NODE_ENV !== 'production';
 
         const server = dev ? 'http://localhost:3000' : 'https://snacc.chat';
-        const data = await fetch(`${server}/api/posts?count=20&sort=datea&pos=${pos}`,{method: 'GET', credentials: 'same-origin'});
+        const data = await fetch(`${server}/api/posts?count=20&sort=dated&pos=${pos}`,{method: 'GET', credentials: 'same-origin'});
         const j = await data.json();
         setUsers(Object.assign(users, j["users"]));
         setItems(j["content"]);
