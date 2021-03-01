@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {getSession} from "next-auth/client";
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient();
+import prisma from '../../../../lib/Database';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { query: { snowflake } } = req;
@@ -85,38 +84,39 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 })
                 res.end();
                 return
+            } else {
+                user?.upvotes.push(updatePost.snowflake)
+                await prisma.user.update({
+                    where: {
+                        id: user?.id
+                    },
+                    data: {
+                        downvotes: user?.upvotes
+                    }
+                })
+                if (alreadyVoted) {
+                    await prisma.post.update({
+                        where: {
+                            snowflake:String(snowflake)
+                        },
+                        data: {
+                            votes: updatePost.votes + 1
+                        }
+                    })
+                    res.status(204);
+                    res.end()
+                } else {
+                    await prisma.post.update({
+                        where: {
+                            snowflake:String(snowflake)
+                        },
+                        data: {
+                            votes: updatePost.votes - 1
+                        }
+                    })
+                }    
             }
     
-            user?.upvotes.push(updatePost.snowflake)
-            await prisma.user.update({
-                where: {
-                    id: user?.id
-                },
-                data: {
-                    downvotes: user?.upvotes
-                }
-            })
-            if (alreadyVoted) {
-                await prisma.post.update({
-                    where: {
-                        snowflake:String(snowflake)
-                    },
-                    data: {
-                        votes: updatePost.votes + 1
-                    }
-                })
-                res.status(204);
-                res.end()
-            } else {
-                await prisma.post.update({
-                    where: {
-                        snowflake:String(snowflake)
-                    },
-                    data: {
-                        votes: updatePost.votes - 1
-                    }
-                })
-            }
         }
         // res.end();
         // return

@@ -1,11 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {getSession} from "next-auth/client";
 import {ApiUser} from "../../../Types/ApiUser";
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../../lib/Database';
 
-
-
-const prisma = new PrismaClient();
 type SnowflakeData = { snowflake:string }
 
 export default async (req: NextApiRequest, res: NextApiResponse<SnowflakeData>) => {

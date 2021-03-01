@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import Navbar from "../../../components/Navbar";
 import { FormEvent } from "react";
 import toast from 'react-hot-toast'
-import { Post, PrismaClient } from "@prisma/client";
+import { Post } from "@prisma/client";
 
-const prisma = new PrismaClient()
+import prisma from '../../../lib/Database';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context)
@@ -52,7 +52,7 @@ export default function Home({ session, d }: {
 
     const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const target = e.target as any
 
         console.log(JSON.stringify({

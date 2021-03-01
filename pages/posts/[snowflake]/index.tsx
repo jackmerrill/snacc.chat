@@ -2,11 +2,11 @@ import { GetServerSideProps } from "next";
 import { getSession, Session } from "next-auth/client";
 import Navbar from "../../../components/Navbar";
 import Head from 'next/head'
-import { Post, PrismaClient, User } from '@prisma/client'
+import { Post, User } from '@prisma/client'
 import markdownToTxt from 'markdown-to-txt';
 import PostComponent from '../../../components/Post';
 import NotFound from "../../404";
-const prisma = new PrismaClient();
+import prisma from '../../../lib/Database';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { snowflake } = context.query

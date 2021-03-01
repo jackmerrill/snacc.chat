@@ -1,8 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient();
-
+import prisma from '../../../lib/Database';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { count, sort, pos, user } = req.query;

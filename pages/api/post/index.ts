@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {getSession} from "next-auth/client";
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../../lib/Database';
 import FlakeId from 'flake-idgen';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -8,7 +8,6 @@ import intformat from 'biguint-format'
 
 
 const flakeIdGen = new FlakeId({ epoch: 1609459200 });
-const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { content } = JSON.parse(req.body);

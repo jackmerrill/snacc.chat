@@ -2,13 +2,13 @@ import { GetServerSideProps } from "next";
 import { getSession, Session } from "next-auth/client";
 import Navbar from "../../components/Navbar";
 import Head from 'next/head'
-import { User, Post, PrismaClient } from "@prisma/client";
+import { User, Post } from "@prisma/client";
 import React, { useState } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostComponent from "../../components/Post";
 import { useRouter } from "next/router";
+import prisma from '../../lib/Database';
 
-const prisma = new PrismaClient()
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context)
